@@ -7,6 +7,8 @@ export const getImages = authToken => async dispatch => {
   });
   try {
     const images = await getImagesFromManiak(authToken);
+    console.log('hello from getImages() action');
+    console.log(images);
     dispatch({
       type: GET_IMAGES,
       payload: images,

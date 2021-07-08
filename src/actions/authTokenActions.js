@@ -7,7 +7,6 @@ export const getAuthToken = (username, password) => async dispatch => {
   });
   try {
     const authToken = await getToken(username, password);
-    console.log(authToken);
     dispatch({
       type: GET_AUTH_TOKEN,
       payload: authToken,
