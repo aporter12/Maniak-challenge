@@ -22,10 +22,16 @@ const Login = props => {
 
   const doLogin = async () => {
     await props.getAuthToken(username, password);
-    if (props.authToken) props.history.go('/ImageList');
+    if (props.authToken) {
+      history.go('/ImageList');
+    }
   };
 
-  useEffect(() => {
+  useEffect(async () => {
+    console.log(props);
+    try {
+      await getAuthTokenFromStorage();
+    } catch (error) {}
     if (props.authToken) history.push('/ImageList');
   }, [props]);
 
@@ -119,6 +125,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     flexDirection: 'row',
     padding: 10,
+    margin: 30,
   },
   errorText: {
     color: 'red',

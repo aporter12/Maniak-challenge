@@ -2,9 +2,8 @@ import React from 'react';
 import {Image, StyleSheet, Text, View} from 'react-native';
 
 export default ({image}) => {
-  console.log(image);
   const {item} = image;
-  console.log(item.image);
+
   return (
     <View style={styles.mainContainer}>
       <Text></Text>

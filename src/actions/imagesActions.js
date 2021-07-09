@@ -1,5 +1,5 @@
 import {getImagesFromManiak} from '../utils/APIRequests';
-import {GET_IMAGES, LOADING, ERROR} from '../types/types';
+import {GET_IMAGES, REMOVE_AUTH_TOKEN, LOADING, ERROR} from '../types/types';
 
 export const getImages = authToken => async dispatch => {
   dispatch({
@@ -7,8 +7,6 @@ export const getImages = authToken => async dispatch => {
   });
   try {
     const images = await getImagesFromManiak(authToken);
-    console.log('hello from getImages() action');
-    console.log(images);
     dispatch({
       type: GET_IMAGES,
       payload: images,
@@ -19,4 +17,10 @@ export const getImages = authToken => async dispatch => {
       payload: error.message,
     });
   }
+};
+
+export const removeAuthToken = () => dispatch => {
+  dispatch({
+    type: REMOVE_AUTH_TOKEN,
+  });
 };

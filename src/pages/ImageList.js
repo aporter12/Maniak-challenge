@@ -1,5 +1,6 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
+  Alert,
   FlatList,
   Image,
   StyleSheet,
@@ -8,16 +9,22 @@ import {
   View,
 } from 'react-native';
 import {connect} from 'react-redux';
+import {useHistory} from 'react-router-dom';
 
 import * as imagesActions from '../actions/imagesActions';
+import * as authTokenActions from '../actions/authTokenActions';
+
 import ImageItem from '../components/ImageItem';
 import homeImg from '../assets/home.png';
 
 const ImageList = props => {
+  const history = useHistory();
+
   useEffect(async () => {
     if (!props.imagesReducer?.images?.length) {
       const authToken = props.authTokenReducer.authToken;
       await props.getImages(authToken);
+      console.log(props);
     }
   }, []);
 
@@ -25,15 +32,26 @@ const ImageList = props => {
     return <ImageItem image={image} />;
   };
 
+  const openLogoutAlert = () =>
+    Alert.alert('Logout', 'You are about to Logout from this session', [
+      {
+        text: 'Cancel',
+        onPress: () => {},
+        style: 'cancel',
+      },
+      {text: 'Logout', onPress: () => doLogout()},
+    ]);
+
   const doLogout = () => {
-    console.log('Should logout');
+    props.removeAuthToken();
+    history.push('/');
   };
 
   return (
     <View style={styles.main}>
       <View style={styles.topContainer}>
         <Text style={styles.title}>My Photos</Text>
-        <TouchableOpacity onPress={() => doLogout()}>
+        <TouchableOpacity onPress={() => openLogoutAlert()}>
           <Text>LOG OUT</Text>
         </TouchableOpacity>
       </View>

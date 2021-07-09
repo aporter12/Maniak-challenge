@@ -18,3 +18,10 @@ export const getAuthToken = (username, password) => async dispatch => {
     });
   }
 };
+
+export const setAuthToken = authToken => dispatch => {
+  dispatch({
+    type: GET_AUTH_TOKEN,
+    payload: authToken,
+  });
+};

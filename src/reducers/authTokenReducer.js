@@ -1,4 +1,9 @@
-import {GET_AUTH_TOKEN, LOADING, ERROR} from '../types/types';
+import {
+  GET_AUTH_TOKEN,
+  REMOVE_AUTH_TOKEN,
+  LOADING,
+  ERROR,
+} from '../types/types';
 const INITIAL_STATE = {
   authToken: '',
   loading: false,
@@ -11,6 +16,13 @@ export default (state = INITIAL_STATE, action) => {
       return {
         ...state,
         authToken: action.payload,
+        error: '',
+        loading: false,
+      };
+    case REMOVE_AUTH_TOKEN:
+      return {
+        ...state,
+        authToken: '',
         error: '',
         loading: false,
       };
